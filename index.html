@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=], initial-scale=1.0">
+    <title>Tarefas</title>
+</head>
+
+<body>
+    <h1>Criar Tarefas</h1>
+
+    <div id="tarefa">
+        <div class="lista-tarefas">
+            <label for="titulo">Título:</label>
+            <input type="text" name="Titulo" id="titulo" placeholder="Ex: Lista de compras">
+        </div>
+
+        <div class="lista-tarefas">
+            <label for="descricao">Descrição:</label>
+            <input type="text" name="Descricao" id="descricao" placeholder="Ex: Comprar arroz">
+        </div>
+
+        <div class="lista-tarefas">
+            <label for="tipo">Tipo de tarefa:</label>
+            <select id="tipo" name="tipo">
+                <option value="pessoal">Pessoal</option>
+                <option value="profissional">Profissional</option>
+            </select>
+        </div>
+    </div>
+        <button id="btSalvar">Salvar Tarefa</button>
+        <button id="btListar">Listar tarefas</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
