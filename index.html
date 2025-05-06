@@ -24,15 +24,35 @@
         <div class="lista-tarefas">
             <label for="tipo">Tipo de tarefa:</label>
             <select id="tipo" name="tipo">
-                <option value="pessoal">Pessoal</option>
-                <option value="profissional">Profissional</option>
+                <option value="Pessoal">Pessoal</option>
+                <option value="Profissional">Profissional</option>
             </select>
         </div>
-    </div>
-        <button id="btSalvar">Salvar Tarefa</button>
-        <button id="btListar">Listar tarefas</button>
-    </div>
-    <script src="script.js"></script>
+        <!-- Botões principais -->
+        <div>
+            <button id="btSalvar">Salvar tarefa</button>
+            <button id="btListar">Listar tarefas</button>
+        </div>
+
+        <!-- Seção de busca -->
+        <div>
+            <button id="btBuscar">Buscar tarefa</button>
+
+            <div id="pesquisar"></div>
+
+            <div id="exibir-tarefa"></div>
+        </div>
+
+
+        <div>
+            <div id="lista-tarefas">
+
+            </div>
+            <div id="botoes">
+
+            </div>
+        </div>
+        <script src="script.js"></script>
 </body>
 
 </html>
