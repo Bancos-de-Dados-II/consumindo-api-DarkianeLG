@@ -4,6 +4,7 @@ const descricao = document.getElementById("descricao");
 const tipo = document.getElementById("tipo");
 const btSalvar = document.getElementById("btSalvar");
 const btListar = document.getElementById("btListar");
+const btBuscar = document.getElementById("btBuscar");
 
 //FUNÇÃO SALVAR
 btSalvar.addEventListener('click', function(){
@@ -68,8 +69,28 @@ async function fetchTasks() {
 
     //Exebindo a tabela na tela
     tabelaContainer.appendChild(tabela);
-}
+};
 
+btBuscar.addEventListener('click', function(){
+    const pesquisar = document.getElementById("pesquisar");
+    const label = document.createElement("label");
+    label.textContent = "Buscar tarefa pelo título:"
+    const input = document.createElement("input");
+    input.type = "Text";
+    const btPesquisar = document.createElement("button");
+    btPesquisar.textContent = "Buscar" 
+
+    pesquisar.appendChild(label);
+    pesquisar.appendChild(input);
+    pesquisar.appendChild(btPesquisar);
+
+    btPesquisar.addEventListener('click', function (){
+        const exibir_tarefa = document.getElementById("exibir-tarefa")
+        exibir_tarefa.innerHTML = ""; // limpa resultado anterior
+        
+
+    });
+});
 
 btListar.addEventListener('click', fetchTasks);
 
