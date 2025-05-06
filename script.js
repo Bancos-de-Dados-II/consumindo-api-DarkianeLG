@@ -26,19 +26,21 @@ btSalvar.addEventListener('click', function(){
     tipo.value = "Pessoal"; 
 });
 
-//FUNÇÃO EXIBIR NA TELA
-async function fetchTasks() {
+//BUSCAR TODAS AS TAREFAS
+async function buscarTodasAsTarefas() {
     const response = await fetch("http://localhost:3000/tasks");
     const tasks = await response.json();
+    return tasks;
+}
 
-    const tabelaContainer = document.getElementById("lista-tarefas");
-    tabelaContainer.innerHTML = ""; // limpa antes de adicionar outra tabela
-    
-    //Criando uma tabela
+//FUNÇÃO EXIBIR NA Tabela
+function exibirTarefasNaTabela(tasks, containerId = "lista-tarefas") {
+    const tabelaContainer = document.getElementById(containerId);
+    tabelaContainer.innerHTML = "";
+
     const tabela = document.createElement("table");
-    tabela.border = "1"; // Borda simples
+    tabela.border = "1";
 
-    // Cabeçalho da tabela
     const cabecalho = tabela.insertRow();
     cabecalho.innerHTML = `
         <th>Título</th>
@@ -46,7 +48,6 @@ async function fetchTasks() {
         <th>Tipo</th>
     `;
 
-    // Linhas da tabela
     tasks.forEach(task => {
         const linha = tabela.insertRow();
         linha.innerHTML = `
@@ -55,42 +56,66 @@ async function fetchTasks() {
             <td>${task.tipo}</td>
         `;
     });
-    
-    //Criando os botões de atualizar e remover 
-    const botoes = document.getElementById("botoes");
-    
-    const btAtualizar = document.createElement("button");
-    const btRemover = document.createElement("button");
 
-    btAtualizar.textContent = "Remover";
-    btRemover.textContent = "Atualizar"
-    botoes.appendChild(btAtualizar);
-    botoes.appendChild(btRemover);
-
-    //Exebindo a tabela na tela
     tabelaContainer.appendChild(tabela);
-};
+}
 
-btBuscar.addEventListener('click', function(){
+// FUNÇÃO LISTAR TAREFAS
+async function listar() {
+    const tarefa = await buscarTodasAsTarefas();
+    exibirTarefasNaTabela(tarefa);
+        //Criando os botões de atualizar e remover 
+        const botoes = document.getElementById("botoes");
+    
+        const btAtualizar = document.createElement("button");
+        const btRemover = document.createElement("button");
+    
+        btAtualizar.textContent = "Remover";
+        btRemover.textContent = "Atualizar"
+        botoes.appendChild(btAtualizar);
+        botoes.appendChild(btRemover);
+}
+
+btListar.addEventListener('click', listar);
+
+// FUNÇÃO BUSCAR TAREFA
+btBuscar.addEventListener('click', function () {
     const pesquisar = document.getElementById("pesquisar");
+    pesquisar.innerHTML = ""; // Limpa o conteúdo anterior
+
     const label = document.createElement("label");
-    label.textContent = "Buscar tarefa pelo título:"
+    label.textContent = "Buscar tarefa pelo título:";
     const input = document.createElement("input");
-    input.type = "Text";
+    input.type = "text";
     const btPesquisar = document.createElement("button");
-    btPesquisar.textContent = "Buscar" 
+    btPesquisar.textContent = "Buscar";
 
     pesquisar.appendChild(label);
     pesquisar.appendChild(input);
     pesquisar.appendChild(btPesquisar);
 
-    btPesquisar.addEventListener('click', function (){
-        const exibir_tarefa = document.getElementById("exibir-tarefa")
-        exibir_tarefa.innerHTML = ""; // limpa resultado anterior
-        
+    btPesquisar.addEventListener('click', async function () {
+        const tituloBusca = input.value.trim().toLowerCase();
+        const resultado = document.getElementById("exibir-tarefa");
+        resultado.innerHTML = "";
 
+        if (tituloBusca === "") {
+            resultado.textContent = "Informe o título da tarefa.";
+            return;
+        }
+
+        const todasTarefas = await buscarTodasAsTarefas();
+        const tarefasFiltradas = todasTarefas.filter(task =>
+            task.titulo.toLowerCase().includes(tituloBusca)
+        );
+
+        if (tarefasFiltradas.length === 0) {
+            resultado.textContent = "Nenhuma tarefa encontrada.";
+        } else {
+            exibirTarefasNaTabela(tarefasFiltradas, "exibir-tarefa");
+        }
     });
 });
 
-btListar.addEventListener('click', fetchTasks);
+
 
