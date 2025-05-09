@@ -5,6 +5,7 @@ const tipo = document.getElementById("tipo");
 const btSalvar = document.getElementById("btSalvar");
 const btListar = document.getElementById("btListar");
 const btBuscar = document.getElementById("btBuscar");
+const mensagem = document.getElementById("mensagem");
 
 //FUNÇÃO SALVAR
 btSalvar.addEventListener('click', function(){
@@ -46,6 +47,7 @@ function exibirTarefasNaTabela(tasks, containerId = "lista-tarefas") {
         <th>Título</th>
         <th>Descrição</th>
         <th>Tipo</th>
+        <th>Ações</th>
     `;
 
     tasks.forEach(task => {
@@ -55,6 +57,19 @@ function exibirTarefasNaTabela(tasks, containerId = "lista-tarefas") {
             <td>${task.descricao}</td>
             <td>${task.tipo}</td>
         `;
+
+        const celulaAcoes = linha.insertCell();
+
+        const btAtualizar = document.createElement("button");
+        btAtualizar.textContent = "Atualizar";
+        btAtualizar.addEventListener("click", () => atualizarTarefa(task));
+        
+        const btRemover = document.createElement("button");
+        btRemover.textContent = "Remover";
+        btRemover.addEventListener("click", () => removerTarefa(task.firstName));
+        
+        celulaAcoes.appendChild(btAtualizar);
+        celulaAcoes.appendChild(btRemover);
     });
 
     tabelaContainer.appendChild(tabela);
@@ -64,16 +79,6 @@ function exibirTarefasNaTabela(tasks, containerId = "lista-tarefas") {
 async function listar() {
     const tarefa = await buscarTodasAsTarefas();
     exibirTarefasNaTabela(tarefa);
-        //Criando os botões de atualizar e remover 
-        const botoes = document.getElementById("botoes");
-    
-        const btAtualizar = document.createElement("button");
-        const btRemover = document.createElement("button");
-    
-        btAtualizar.textContent = "Remover";
-        btRemover.textContent = "Atualizar"
-        botoes.appendChild(btAtualizar);
-        botoes.appendChild(btRemover);
 }
 
 btListar.addEventListener('click', listar);
@@ -117,5 +122,63 @@ btBuscar.addEventListener('click', function () {
     });
 });
 
+//FUNÇÃO ATUALIZAR
+function atualizarTarefa(task) {
+    titulo.value = task.titulo;
+    descricao.value = task.descricao;
+    tipo.value = task.tipo;
+
+    // Clonar o botão para remover todos os listeners anteriores
+    const novoBtSalvar = btSalvar.cloneNode(true);
+    btSalvar.parentNode.replaceChild(novoBtSalvar, btSalvar);
+
+    novoBtSalvar.textContent = "Atualizar";
+
+    novoBtSalvar.addEventListener('click', function () {
+        const tarefaAtualizada = {
+            titulo: titulo.value,
+            descricao: descricao.value,
+            tipo: tipo.value
+        };
+
+        fetch(`http://localhost:3000/tasks/${task.firstName}`, { 
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(tarefaAtualizada)
+        })
+        .then(response => {
+            if (response.ok) {
+                titulo.value = "";
+                descricao.value = "";
+                tipo.value = "Pessoal";
+                novoBtSalvar.textContent = "Salvar";
+                listar(); 
+                mensagem.textContent = "Taarefa atualizada com sucesso!"
+
+            } 
+        })
+        .catch(error => {
+            console.error("Erro na requisição de atualização:", error);
+            mensagem.textContent = "Erro ao atualizar a tarefa!"
+        });
+    });
+}
+
+//Função REMOVE
+function removerTarefa(task){
+    fetch(`http://localhost:3000/tasks/${task}`, { 
+        method: "DELETE",
+    })
+    .then(()=> {
+        listar();
+        mensagem.textContent = "Taarefa removida com sucesso!"
+    })
+    .catch(error => {
+        console.error("Erro ao remover a tarefa:", error);
+        mensagem.textContent = "Erro ao remover a tarefa!"
+    });
+}
 
 
