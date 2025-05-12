@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=], initial-scale=1.0">
+    <title>Lista de tarefas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Listar de tarefas</h1>
+
+    <div id="tarefa">
+        <div class="lista-tarefas">
+            <label for="titulo">Título:</label>
+            <input type="text" name="Titulo" id="titulo" placeholder="Ex: Lista de compras">
+        </div>
+
+        <div class="lista-tarefas">
+            <label for="descricao">Descrição:</label>
+            <input type="text" name="Descricao" id="descricao" placeholder="Ex: Comprar arroz">
+        </div>
+
+        <div class="lista-tarefas">
+            <label for="tipo">Tipo de tarefa:</label>
+            <select id="tipo" name="tipo">
+                <option value="Pessoal">Pessoal</option>
+                <option value="Profissional">Profissional</option>
+            </select>
+        </div>
+
+        <!-- Botões principais -->
+        <div>
+            <button id="btSalvar">Salvar tarefa</button>
+            <button id="btListar">Listar tarefas</button>
+        </div>
+
+        <!-- Seção de busca -->
+        <div>
+            <button id="btBuscar">Buscar tarefa</button>
+
+            <div id="pesquisar"></div>
+            <div id="exibir-tarefa"></div>
+        </div>
+
+        <!-- Área de exibição da lista -->
+        <div>
+            <div id="lista-tarefas"></div>
+            <div id="botoes"></div>
+        </div>
+
+        <!-- Mensagens de erro ou sucesso -->
+        <div id="mensagem"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
