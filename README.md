@@ -1,1 +1,25 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/d0bmJ7Jc)
+# Consumo de API - Banco de Dados II
+
+Este projeto consome uma API que está localizada no seguinte repositório:
+
+➡️ [API Banco de Dados II](https://github.com/DarkianeLG/banco-dadosII/tree/main)
+
+A aplicação realiza requisições para a API, permitindo consumir os dados disponibilizados por ela.
+
+## Tecnologias utilizadas
+
+- HTML
+- CSS
+- JavaScript
+
+## Como executar
+
+1. Clone este repositório.
+2. Garanta que a API do repositório indicado esteja em execução.
+3. Abra o arquivo `index.html` em seu navegador.
+4. A aplicação estará conectada à API e poderá consumir seus dados.
+
+## Observação
+
+Certifique-se de que a API esteja acessível localmente ou configure o endpoint corretamente conforme as instruções da API.
+
