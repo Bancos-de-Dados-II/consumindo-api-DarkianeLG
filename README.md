@@ -2,7 +2,7 @@
 
 Este projeto consome uma API que está localizada no seguinte repositório:
 
-➡️ [API Banco de Dados II]((https://github.com/DarkianeLG/API-banco-dadosII))
+➡️ [API Banco de Dados II](https://github.com/DarkianeLG/API-banco-dadosII)
 
 A aplicação realiza requisições para a API, permitindo consumir os dados disponibilizados por ela.
 
